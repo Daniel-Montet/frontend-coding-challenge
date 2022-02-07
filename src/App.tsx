@@ -1,45 +1,23 @@
-import { useState } from 'react'
-import logo from './logo.svg'
-import './App.css'
+import { useState } from "react";
+import logo from "./logo.svg";
+import "./App.css";
 
 function App() {
-  const [count, setCount] = useState(0)
-
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>Hello Vite + React!</p>
-        <p>
-          <button type="button" onClick={() => setCount((count) => count + 1)}>
-            count is: {count}
-          </button>
-        </p>
-        <p>
-          Edit <code>App.tsx</code> and save to test HMR updates.
-        </p>
-        <p>
-          <a
-            className="App-link"
-            href="https://reactjs.org"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Learn React
-          </a>
-          {' | '}
-          <a
-            className="App-link"
-            href="https://vitejs.dev/guide/features.html"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Vite Docs
-          </a>
-        </p>
-      </header>
-    </div>
-  )
+  return "Hello world";
 }
 
-export default App
+export default App;
+// fetch data from  https://jsonplaceholder.typicode.com/photos
+// create list component
+//   list item component
+//     label <---> focused input onHover, onClick of canvas, onKeyUp Esc / Enter
+//     display image ---> thumbnailUrl
+//     <div>{Date.now()}</div>
+//     conditionally render backgroundColor if id is even grey if odd white
+//  Confirm Update
+//   disabled by default ---> onChange of any listItem label it switches to active
+//   onClick update all listItem(s)
+//  Reset button
+//     disabled by default
+//     enabled when any listItem title has been changed
+//     onClick all titles should reset to previous state without need of re fetching data from the API
