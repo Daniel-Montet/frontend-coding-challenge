@@ -1,9 +1,20 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import logo from "./logo.svg";
 import "./App.css";
+import { AppProps } from "./types/types";
+import List from "./components/list/list.component";
 
 function App() {
-  return "Hello world";
+  const [{ isLoading, isError, data }] = useTypicodeApi();
+
+  return (
+    <div>
+      <hr />
+      {isError && <div>Something went wrong ...</div>}
+
+      {isLoading ? <div>Loading ...</div> : <List data={data} />}
+    </div>
+  );
 }
 
 export default App;
@@ -21,3 +32,48 @@ export default App;
 //     disabled by default
 //     enabled when any listItem title has been changed
 //     onClick all titles should reset to previous state without need of re fetching data from the API
+
+// function useHackerNewsApi(): [
+//   state: { data: { hits: any[] }; isLoading: boolean; isError: boolean },
+//   setUrl: Function
+// ] {
+//   const [data, setData] = useState({ hits: [] });
+//   const [url, setUrl] = useState(
+//     "https://hn.algolia.com/api/v1/search?query=redux"
+//   );
+//   const [isLoading, setIsLoading] = useState(false);
+//   const [isError, setIsError] = useState(false);
+
+//   const fetchData = () => {
+//     setIsLoading(true);
+//     setIsError(false);
+
+//     fetch(url)
+//       .then(async (response) => {
+//         let result = await response.json();
+//         setData(result);
+//         setIsLoading(false);
+//       })
+//       .catch((error) => {
+//         console.log(error);
+//         setIsLoading(false);
+//         setIsError(true);
+//       });
+//   };
+
+//   useEffect(() => {
+//     fetchData();
+//   }, [url]);
+
+//   return [{ data, isLoading, isError }, setUrl];
+// }
+
+function useTypicodeApi(): [
+  state: { isLoading: boolean; isError: boolean; data: AppProps["data"] }
+] {
+  const [isLoading, setIsLoading] = useState(false);
+  const [isError, setIsError] = useState(false);
+  const [data, setData] = useState<AppProps["data"]>();
+
+  return [{ isLoading, isError, data }];
+}
