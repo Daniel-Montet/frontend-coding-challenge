@@ -1,12 +1,10 @@
 import { useEffect, useState } from "react";
-import logo from "./logo.svg";
 import "./App.css";
 import { AppProps } from "./types/types";
 import List from "./components/list/list.component";
 
 function App() {
   const [{ isLoading, isError, data }] = useTypicodeApi();
-
   return (
     <div>
       <hr />
@@ -69,11 +67,33 @@ export default App;
 // }
 
 function useTypicodeApi(): [
-  state: { isLoading: boolean; isError: boolean; data: AppProps["data"] }
+  { isLoading: boolean; isError: boolean; data: AppProps["data"] }
 ] {
   const [isLoading, setIsLoading] = useState(false);
   const [isError, setIsError] = useState(false);
   const [data, setData] = useState<AppProps["data"]>();
+
+  const fetchData = () => {
+    setIsLoading(true);
+
+    fetch("https://jsonplaceholder.typicode.com/photos")
+      .then(async (response) => {
+        const data = await response.json();
+        setData(data);
+        setIsLoading(false);
+        console.log(data);
+      })
+      .catch((error) => {
+        console.log(error);
+        setIsError(true);
+        setIsLoading(false);
+      });
+  };
+
+  useEffect(() => {
+    console.log("use effect called");
+    fetchData();
+  }, []);
 
   return [{ isLoading, isError, data }];
 }

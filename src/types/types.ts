@@ -8,5 +8,11 @@ type DataItem = {
 
 export type AppProps = {
 	data?: DataItem[],
-	dataItem?: DataItem
+	dataItem?: DataItem,
+	isFocused?: boolean,
+	handleFocus?: Function,
+	title?: string,
+	handleEditTitle?: Function,
+	ref?: any,
+	focus?: Function
 };
